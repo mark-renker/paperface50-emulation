@@ -1,0 +1,8 @@
+build/
+*.o
+*.a
+.DS_Store
+xcuserdata/
+*.xcuserstate
+CMakeUserPresets.json
+.cache/
