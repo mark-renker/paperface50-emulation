@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 3.22)
-project(SergePaperface50 VERSION 1.0.0)
+project(SergePaperface50 VERSION 1.0.1)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(APPLE)
-  set(CMAKE_OSX_ARCHITECTURES "arm64" CACHE STRING "" FORCE)
+  # universal by default (release installers); -DPF_ARCHS=arm64 for a faster native-only dev build
+  set(PF_ARCHS "arm64;x86_64" CACHE STRING "macOS architectures to build")
+  set(CMAKE_OSX_ARCHITECTURES "${PF_ARCHS}" CACHE STRING "" FORCE)
   set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0" CACHE STRING "" FORCE)
 endif()
 

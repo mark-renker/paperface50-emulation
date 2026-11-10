@@ -1,0 +1,7 @@
+Paperface 50 - Windows install
+
+1. Copy the "Paperface 50.vst3" and "Paperface 50 FX.vst3" folders to  C:\Program Files\Common Files\VST3\
+2. Rescan plug-ins in your DAW. They appear under "Black Tie Ventures".
+3. "Paperface 50.exe" / "Paperface 50 FX.exe" are the standalone apps; they run from anywhere. If SmartScreen
+   warns about an unrecognized app, click More info > Run anyway (the build is not code-signed).
+Nothing sounds until it is patched: drag banana cables between jacks.

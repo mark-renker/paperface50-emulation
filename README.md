@@ -19,6 +19,19 @@ copied assets.
 | **Paperface 50** | Instrument (`aumu Pf50 Bktv`) | AU · VST3 · Standalone |
 | **Paperface 50 FX** | Music effect (`aumf Pf5F Bktv`) | AU · VST3 · Standalone |
 
+## Install (no build needed)
+
+Grab the latest files from the **[Releases page](../../releases/latest)**:
+
+* **macOS** (11 or later, Apple Silicon and Intel): download `Paperface50-<version>-macOS.pkg` and open it. If
+  Gatekeeper objects (the installer is not notarized), right-click the file and choose *Open*. Tick what you want:
+  the instrument and/or the FX version, each as AU, VST3 and/or standalone app. Rescan plug-ins in your DAW.
+  `Paperface50-<version>-macOS-bundles.zip` has the raw bundles and a manual-install note.
+* **Windows** (x64, built by CI when available): download `Paperface50-<version>-Windows-x64.zip`, unzip, copy the
+  `.vst3` folders to `C:\Program Files\Common Files\VST3\`.
+
+The plug-ins appear under **Black Tie Ventures › Paperface 50 / Paperface 50 FX**. Nothing sounds until you patch it.
+
 ## Status
 
 **v1.0.0** — feature-complete first release. All hard gates green on macOS
@@ -46,7 +59,7 @@ read `LOG.md` for the honest history. Technique credit: Matt Shumer
 from [robonuggets/gauntlet-loop](https://github.com/robonuggets/gauntlet-loop)
 (CC BY 4.0) and [martbln/benchmark-loop](https://github.com/martbln/benchmark-loop).
 
-## Building
+## Building from source
 
 Requirements: macOS (arm64 tested; Linux builds VST3/Standalone), CMake ≥3.22,
 Xcode command-line tools, and JUCE 8 — a checkout at `~/JUCE` is used if

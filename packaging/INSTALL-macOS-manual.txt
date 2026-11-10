@@ -1,0 +1,10 @@
+Paperface 50 - manual macOS install (if you prefer not to use the .pkg)
+
+1. Copy "Paperface 50.component" and "Paperface 50 FX.component" to ~/Library/Audio/Plug-Ins/Components/
+2. Copy "Paperface 50.vst3" and "Paperface 50 FX.vst3" to ~/Library/Audio/Plug-Ins/VST3/
+3. The .app files run from anywhere (e.g. /Applications).
+4. Downloaded bundles are quarantined by macOS; clear that once:
+      xattr -dr com.apple.quarantine ~/Library/Audio/Plug-Ins/Components/"Paperface 50.component" \
+          ~/Library/Audio/Plug-Ins/Components/"Paperface 50 FX.component" \
+          ~/Library/Audio/Plug-Ins/VST3/"Paperface 50.vst3" ~/Library/Audio/Plug-Ins/VST3/"Paperface 50 FX.vst3"
+5. Rescan plug-ins in your DAW. They appear under "Black Tie Ventures".

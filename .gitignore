@@ -6,3 +6,5 @@ xcuserdata/
 *.xcuserstate
 CMakeUserPresets.json
 .cache/
+build*/
+dist/
