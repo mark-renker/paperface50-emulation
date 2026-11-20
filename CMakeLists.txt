@@ -89,3 +89,24 @@ target_link_libraries(pf50_snapshot PRIVATE juce::juce_gui_extra)
 
 enable_testing()
 add_test(NAME gauntlet COMMAND pf50_gauntlet)
+
+# ---- Measurement bench (bench/README.md) -------------------------------------
+# Engine-level renderer: no JUCE; bench/run_bench.py also compiles it directly so it
+# can render a git reference tree for null tests.
+add_executable(pf50_bench bench/render/Bench.cpp)
+target_include_directories(pf50_bench PRIVATE src/engine)
+set_target_properties(pf50_bench PROPERTIES CXX_STANDARD 17)
+
+# Plugin-level bench: drives the real PF50Processor (instrument and FX builds).
+foreach(PF_BENCH_FX 0 1)
+  if(PF_BENCH_FX)
+    set(PF_BENCH_TARGET pf50_pluginbench_fx)
+  else()
+    set(PF_BENCH_TARGET pf50_pluginbench)
+  endif()
+  juce_add_console_app(${PF_BENCH_TARGET} PRODUCT_NAME "${PF_BENCH_TARGET}")
+  target_sources(${PF_BENCH_TARGET} PRIVATE tools/PluginBench.cpp src/plugin/PluginProcessor.cpp)
+  target_compile_definitions(${PF_BENCH_TARGET} PRIVATE PF50_FX=${PF_BENCH_FX} JUCE_MODAL_LOOPS_PERMITTED=1)
+  pf50_common(${PF_BENCH_TARGET})
+  target_link_libraries(${PF_BENCH_TARGET} PRIVATE juce::juce_gui_extra)
+endforeach()

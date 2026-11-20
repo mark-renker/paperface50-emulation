@@ -1,0 +1,48 @@
+# Measurement bench (bench/README.md): null tests vs the PR base, aliasing/THD/filter/DC/latency
+# measurements, CPU, the gauntlet DSP suite, and the plugin-level bench (real PF50Processor).
+# Fails on any regression or new spec failure. Label a PR `dsp-change` when it intentionally
+# changes the sound: null mismatches then warn instead of fail (metric regressions still fail).
+name: bench
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  bench:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Linux build deps for JUCE (plugin-level bench)
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q ninja-build libasound2-dev libx11-dev libxrandr-dev libxinerama-dev \
+            libxcursor-dev libxcomposite-dev libxext-dev libfreetype-dev libfontconfig1-dev libgl1-mesa-dev libgtk-3-dev
+      - name: Python deps
+        run: python3 -m pip install --quiet numpy matplotlib
+      - name: Build plugin-level bench (JUCE 8.0.6 via FetchContent)
+        run: |
+          cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --target pf50_pluginbench pf50_pluginbench_fx
+      - name: Run bench
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then REF="origin/${{ github.base_ref }}"; else REF="HEAD~1"; fi
+          EXTRA=""
+          if ${{ contains(github.event.pull_request.labels.*.name, 'dsp-change') }}; then EXTRA="--accept-null"; fi
+          python3 bench/run_bench.py --against "$REF" --plugin-bench build $EXTRA
+      - name: Job summary
+        if: always()
+        run: test -f bench/out/report.md && sed 's/^!\[.*$//' bench/out/report.md >> "$GITHUB_STEP_SUMMARY" || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bench-report
+          path: |
+            bench/out/report.md
+            bench/out/metrics.json
+            bench/out/*.png
+            bench/out/gauntlet.txt
