@@ -1,0 +1,107 @@
+{
+  "_doc": "Gates for bench/run_bench.py. 'spec' = absolute budgets; 'regression' = tolerances vs the reference tree. known_failures lists spec gates that fail at the time they were recorded (reported as XFAIL, never silently passed); remove an entry once its gate passes (the report flags it as XPASS).",
+  "spec": {
+    "idle_noise_max_db": -140,
+    "vco_saw_worst_spur_dbc": {
+      "limit": -60,
+      "max_f0": 5000
+    },
+    "tws_alias_ratio_db": {
+      "limit": -40,
+      "max_f0": 7500
+    },
+    "vcf_cutoff_cents": 5,
+    "vcf_slope_tol_db": 1.0,
+    "dc_max_db": -60,
+    "factory_min_peak_dbfs": -40,
+    "cpu_min_rtf": 10,
+    "cpu_p99_block_pct": 25
+  },
+  "regression": {
+    "null_peak_db": -120,
+    "metric_tol_db": 0.5,
+    "cpu_slowdown_pct": 10
+  },
+  "known_failures": {
+    "alias.vco_saw.523": {
+      "recorded": "2026-11-20",
+      "note": "2-point polyBLEP saw: matches an independent numpy polyBLEP to 0.1 dB, so this is the method's ceiling, not a coding error. Engine at 2x gives -52..-68 dBc, 4x -70..-88 dBc."
+    },
+    "alias.vco_saw.1249": {
+      "recorded": "2026-11-20",
+      "note": "2-point polyBLEP saw: matches an independent numpy polyBLEP to 0.1 dB, so this is the method's ceiling, not a coding error. Engine at 2x gives -52..-68 dBc, 4x -70..-88 dBc."
+    },
+    "alias.vco_saw.2489": {
+      "recorded": "2026-11-20",
+      "note": "2-point polyBLEP saw: matches an independent numpy polyBLEP to 0.1 dB, so this is the method's ceiling, not a coding error. Engine at 2x gives -52..-68 dBc, 4x -70..-88 dBc."
+    },
+    "alias.vco_saw.4973": {
+      "recorded": "2026-11-20",
+      "note": "2-point polyBLEP saw: matches an independent numpy polyBLEP to 0.1 dB, so this is the method's ceiling, not a coding error. Engine at 2x gives -52..-68 dBc, 4x -70..-88 dBc."
+    },
+    "alias.tws.3001.d100": {
+      "recorded": "2026-11-20",
+      "note": "Cosine folder runs at the base rate with no anti-aliasing; 2x oversampling clears it below 3 kHz, 4x needed at 7 kHz."
+    },
+    "alias.tws.7019.d25": {
+      "recorded": "2026-11-20",
+      "note": "Cosine folder runs at the base rate with no anti-aliasing; 2x oversampling clears it below 3 kHz, 4x needed at 7 kHz."
+    },
+    "alias.tws.7019.d50": {
+      "recorded": "2026-11-20",
+      "note": "Cosine folder runs at the base rate with no anti-aliasing; 2x oversampling clears it below 3 kHz, 4x needed at 7 kHz."
+    },
+    "alias.tws.7019.d75": {
+      "recorded": "2026-11-20",
+      "note": "Cosine folder runs at the base rate with no anti-aliasing; 2x oversampling clears it below 3 kHz, 4x needed at 7 kHz."
+    },
+    "alias.tws.7019.d100": {
+      "recorded": "2026-11-20",
+      "note": "Cosine folder runs at the base rate with no anti-aliasing; 2x oversampling clears it below 3 kHz, 4x needed at 7 kHz."
+    },
+    "factory.patch_first_voice.audible": {
+      "recorded": "2026-11-20",
+      "note": "Factory patch sets DUAL GATES to AC mode with GAIN = 0, which is a fixed -66 dB in DualGates::tick (kdB = -66*(1-g)); the envelope on LOG can only open the remaining 50 dB, so the patch peaks around -62 to -66 dBFS."
+    },
+    "factory.patch_random_dance.audible": {
+      "recorded": "2026-11-20",
+      "note": "Factory patch sets DUAL GATES to AC mode with GAIN = 0, which is a fixed -66 dB in DualGates::tick (kdB = -66*(1-g)); the envelope on LOG can only open the remaining 50 dB, so the patch peaks around -62 to -66 dBFS."
+    },
+    "factory.patch_sequenced_line.audible": {
+      "recorded": "2026-11-20",
+      "note": "Factory patch sets DUAL GATES to AC mode with GAIN = 0, which is a fixed -66 dB in DualGates::tick (kdB = -66*(1-g)); the envelope on LOG can only open the remaining 50 dB, so the patch peaks around -62 to -66 dBFS."
+    },
+    "factory.patch_serge_bongos.audible": {
+      "recorded": "2026-11-20",
+      "note": "Exact digital silence: the second FILTER's only audio input is its own BAND output, so with zero initial state nothing ever excites it (the envelope only sweeps VC FREQ)."
+    },
+    "latency.lat_io_balout": {
+      "recorded": "2026-11-20",
+      "note": "Engine ticks modules in creation order, so each cable into an earlier module (here the I/O strip, ticked last) adds one sample; getLatencySamples() is never set."
+    },
+    "latency.lat_io_cvpro_gates": {
+      "recorded": "2026-11-20",
+      "note": "Engine ticks modules in creation order, so each cable into an earlier module (here the I/O strip, ticked last) adds one sample; getLatencySamples() is never set."
+    },
+    "latency.lat_io_gates": {
+      "recorded": "2026-11-20",
+      "note": "Engine ticks modules in creation order, so each cable into an earlier module (here the I/O strip, ticked last) adds one sample; getLatencySamples() is never set."
+    },
+    "plugin.fx.latency.in_gates_out": {
+      "recorded": "2026-11-20",
+      "note": "Engine ticks modules in creation order, so each cable into an earlier module (here the I/O strip, ticked last) adds one sample; getLatencySamples() is never set."
+    },
+    "plugin.fx.latency.in_vcf_balout": {
+      "recorded": "2026-11-20",
+      "note": "Engine ticks modules in creation order, so each cable into an earlier module (here the I/O strip, ticked last) adds one sample; getLatencySamples() is never set."
+    },
+    "denormal.idle_unpatched": {
+      "recorded": "2026-11-20",
+      "note": "METRONOME LED decay (leds[0] *= 0.995 between ticks) goes subnormal at slow tempos. No measurable CPU cost, and processBlock sets FTZ/DAZ, so low severity."
+    },
+    "denormal.first_voice": {
+      "recorded": "2026-11-20",
+      "note": "METRONOME LED decay (leds[0] *= 0.995 between ticks) goes subnormal at slow tempos. No measurable CPU cost, and processBlock sets FTZ/DAZ, so low severity."
+    }
+  }
+}

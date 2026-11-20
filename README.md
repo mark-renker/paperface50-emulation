@@ -72,6 +72,15 @@ cmake --build build -j
 auval -v aumu Pf50 Bktv        # after copying the AU into ~/Library/Audio/Plug-Ins/Components
 ```
 
+Measurement bench (null tests vs `main`, aliasing, THD, filter response, DC,
+latency, denormals, CPU; non-zero exit on regression; also runs in CI):
+
+```bash
+python3 bench/run_bench.py --plugin-bench build   # report in bench/out/report.md
+```
+
+See [`bench/README.md`](bench/README.md).
+
 Built plugins land in `build/*_artefacts/Release/{AU,VST3,Standalone}`; copy
 the `.component` and `.vst3` bundles into `~/Library/Audio/Plug-Ins/`.
 
